@@ -16,9 +16,9 @@ int main(int argc, char** argv){
 
 void procSearch(int* data, int target){
 	int ArrLength = sizeof(RandList)/sizeof(integer);
-	int GroupCount = ArrLength/250;
-	int Remain = ArrLength%250;
-	pid_t pids[GroupCount];
+	int ProcCount = ceil(ArrLength/250); //number of processes we need
+	int Remain = ArrLength%250; //remainder: used in last process to count indexes if the number of elements in the array does not divide evenly by 250
+	pid_t pids[ProcCount];
 	pid_t lastpid;
 	int result;
 	//TODO
@@ -27,22 +27,26 @@ void procSearch(int* data, int target){
 	//Implement Child Procs
 	lastpid = fork();
 	if(lastpid == 0){ //Is the child, Act as last group and check remainding
-		result = genericSearch(data, (GroupCount*250), ((GroupCount*250)+Remain), target);
 		exit(result); //exit here
 	}
 	//make sure relative index is encoded in the exit status of the WAIT for this child process
 
-	for (int i = 0; i < GroupCount; i++){
+	for (int i = 0; i < ProcCount; i++){
 		pids[i] = fork();
 		if(pids[i] == 0){ //Is the child, assign array processing
-			int result = genericSearch(data, (i*250), ((i+1)*250), target);
-			exit(result); //exit here
+			if(i < (ProcCount-1)){ //if we have not created the last process yet
+				result = genericSearch(data, (i*250), ((i+1)*250), target);
+				exit(result); //exit here
+			}else{ //we have created the last process
+				result = genericSearch(data, (ProcCount*250), ((ProcCount*250)+Remain), target);
+				exit(result);
+			}
 		}
 	}
 	
 	int status, exit_status;
 	int deadpid;
-	while(GroupCount > 0){
+	while(ProcCount > 0){
 		deadpid = wait(&status);
 		if(WIFEXITED(status)){
 			exit_status = WEXITSTATUS(status);
@@ -52,7 +56,7 @@ void procSearch(int* data, int target){
 				printf("Process with PID: %zu did not find the target", deadpid);
 			}
 		}
-		--GroupCount;
+		--ProcCount;
 	}
 	//add waits here
 	//
