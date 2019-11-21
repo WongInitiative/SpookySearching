@@ -17,8 +17,8 @@ void RNG(int soa){
   }
 
   i = 0;
-  while (i < (0.75 * soa)){
-    int index1 = rand() % soa;
+  while (i < (0.75 * soa)){ 
+	int index1 = rand() % soa;
     int index2= rand() % soa;
     //swap
     int temp = numArray[index1];
@@ -33,7 +33,7 @@ void RNG(int soa){
 
 int main(int argc, char* argv[]){
 
-  int soa = atoi(argv[1]);
+  int soa = 500;
 
   numArray = malloc(sizeof(int) * soa);
   RNG(soa);
@@ -43,7 +43,8 @@ int main(int argc, char* argv[]){
     printf("%d ", numArray[i]);
   }
 
-  dummySearch(numArray, 60, 500); 
+  dummySearch(numArray, 60, soa); 
 
   return 0;
 }
+

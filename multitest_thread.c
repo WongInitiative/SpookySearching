@@ -28,7 +28,7 @@ void splitSearch(int *data, int t, int soa){
 
   printf("%d\n", soa);
 
-  numArray = (int *) malloc(sizeof(int) * soa);
+ // numArray = (int *) malloc(sizeof(int) * soa);
 
 /* DON"T NEED THE BELOW CODE
   printf("Enter the search value:\n");
@@ -38,9 +38,9 @@ void splitSearch(int *data, int t, int soa){
   target = t;
   ///Populating the array ~ NEED TO ADD RANDOMIZE PART
   int i;
-  for (i = 0; i < soa; i++){
-    numArray[i] = i + 1;
-  }
+ // for (i = 0; i < soa; i++){
+ //   numArray[i] = i + 1;
+ // }
 
   ///Creating threads need to execute my fxn ~ Worked
   int threadsReq = soa % 250 == 0? soa/250: soa/250 + 1;
