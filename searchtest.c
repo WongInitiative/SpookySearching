@@ -13,7 +13,7 @@ void RNG(int soa){
 
   for (i = 0; i < soa; i++){
     numArray[i] = i;
-    printf("%d ", numArray[i]);
+    printf("%d \n", numArray[i]);
   }
 
   i = 0;
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
   int i;
 
   for (i= 0; i < soa; i++){
-    printf("%d ", numArray[i]);
+    printf("%d \n", numArray[i]);
   }
 
   dummySearch(numArray, 60, soa); 

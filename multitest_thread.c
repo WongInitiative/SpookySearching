@@ -26,7 +26,7 @@ void splitSearch(int *data, int t, int soa){
   // finding target and finding the size of my array ~ Worked
   // int soa = atoi(argv[1]); **DON"T NEED THE PRECEDING CODE
 
-  printf("%d\n", soa);
+ // printf("%d\n", soa);
 
  // numArray = (int *) malloc(sizeof(int) * soa);
 
