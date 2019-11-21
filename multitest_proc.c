@@ -1,27 +1,25 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-void procSearch(int* data, int target, int length);
-int genericSearch(int* data, int start, int end, int target);
+#include "multitest.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+//#include <string.h>
+//#include <math.h>
+//#include <unistd.h>
+//#include <sys/types.h>
+//#include <sys/wait.h>
 
-int main(int argc, char** argv){
-	int i;
-	int RandList[500];
-	for(i = 0; i < 500; i++){
-		RandList[i] = i;//+1;
-	}
-	procSearch(RandList, 249, 500);
-	return 0;
-}
+//int main(int argc, char** argv){
+//	int i;
+//	int RandList[500];
+//	for(i = 0; i < 500; i++){
+//		RandList[i] = i;//+1;
+//	}
+//	procSearch(RandList, 249, 500);
+//	return 0;
+//}
+
 //TODO
 //clean up pids array since there isn't much of a use for them
-//Test edge cases for bounds of 250, 500, etc.
-//CHANGE FUNCTION NAME TO SPLITSEARCH
-void procSearch(int* data, int target, int length){
+void splitSearch(int* data, int target, int length){
 	int ProcCount = ceil(((double)length)/((double)250)); //number of processes we need
 	int Remain = length%250; //remainder: used in last process to count remaining indexes if the number of elements in the array does not divide evenly by 250
 	pid_t pids[ProcCount];

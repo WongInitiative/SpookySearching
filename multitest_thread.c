@@ -1,13 +1,7 @@
 #include "multitest.h"
 
-typedef struct bounds {
-  int start;
-  int end;
-} bounds;
-
 int target;
 int wasFound = -1;
-int* numArray;
 
 
 void* threadSearch(void* args){
@@ -28,7 +22,7 @@ void* threadSearch(void* args){
 
 
 
-void splitSearch(int t, int soa, int *data){
+void splitSearch(int *data, int t, int soa){
   // finding target and finding the size of my array ~ Worked
   // int soa = atoi(argv[1]); **DON"T NEED THE PRECEDING CODE
 
