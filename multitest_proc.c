@@ -10,15 +10,17 @@ int genericSearch(int* data, int start, int end, int target);
 
 int main(int argc, char** argv){
 	int i;
-	int RandList[550];
-	for(i = 0; i < 550; i++){
-		RandList[i] = i+1;
+	int RandList[500];
+	for(i = 0; i < 500; i++){
+		RandList[i] = i;//+1;
 	}
-	procSearch(RandList, 350, 550);
+	procSearch(RandList, 249, 500);
 	return 0;
 }
 //TODO
 //clean up pids array since there isn't much of a use for them
+//Test edge cases for bounds of 250, 500, etc.
+//CHANGE FUNCTION NAME TO SPLITSEARCH
 void procSearch(int* data, int target, int length){
 	int ProcCount = ceil(((double)length)/((double)250)); //number of processes we need
 	int Remain = length%250; //remainder: used in last process to count remaining indexes if the number of elements in the array does not divide evenly by 250
@@ -37,10 +39,10 @@ void procSearch(int* data, int target, int length){
 				result = genericSearch(data, (i*250), ((i*250)+Remain), target);
 			}
 
-			if(result == 0){
-				exit(0);
+			if(result == -1){
+				exit(255); //exit on success should never be more than 249, so this represents exit on failure to find the index
 			}else{
-				exit(result-(i*250)); //exit here
+				exit(result-(i*250)); //exit with the relative index found by process
 			}
 		}
 	}
@@ -52,7 +54,7 @@ void procSearch(int* data, int target, int length){
 		//printf("A process %d died", i);
 		if(WIFEXITED(status)){
 			exit_status = WEXITSTATUS(status);
-			if(exit_status != 0){
+			if(exit_status != 255){
 				printf("Process with PID: %zu has found the target at relative index: %d\n", deadpid, exit_status); //add print shit here
 			}else{
 				printf("Process with PID: %zu did not find the target \n", deadpid);
@@ -70,5 +72,5 @@ int genericSearch(int* data, int start, int end, int target){
 			return i;
 		}
 	}
-	return 0;
+	return -1;
 }
