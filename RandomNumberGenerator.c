@@ -3,13 +3,14 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "multitest.h"
 
 int * numArray;
 
 void RNG(int soa){
   int i;
   ///Populating the numArray
+  printf("got to RNG!");
+  printf("%d\n", soa);
 
   for (i = 0; i < soa; i++){
     numArray[i] = i;
@@ -34,10 +35,13 @@ void RNG(int soa){
 int main(int argc, char* argv[]){
 
   int soa = atoi(argv[1]);
+  printf("%d\n", soa);
 
   numArray = malloc(sizeof(int) * soa);
   RNG(soa);
   int i;
+
+  printf("\n\n");
 
   for (i= 0; i < soa; i++){
     printf("%d ", numArray[i]);
