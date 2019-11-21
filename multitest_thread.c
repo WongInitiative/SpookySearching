@@ -59,15 +59,16 @@ int main(int argc, char* argv[]){
   pthread_t tids[threadsReq];
 
   bounds searchBound[threadsReq];
+  int lastindex = soa -1; 
 
   //Populate the bounds
-  int leftover = soa;
-  int start = soa;
-  int end = soa;
+  int leftover = lastindex;
+  int start = lastindex;
+  int end = lastindex;
   i = 0;
 
   while (leftover > 0){
-    if (leftover < 250){
+    if (leftover < 249){
       start = 0;
       searchBound[i].start = start;
       searchBound[i].end = end;
