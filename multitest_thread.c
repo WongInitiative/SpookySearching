@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <math.h>
-#include <sys/types.h> //Do I need this?
-#include <sys/wait.h> //Do I need this?
-#include <pthread.h>
-void* threadSearch(void*);
-
+#include "multitest.h"
 
 typedef struct bounds {
   int start;
@@ -36,17 +28,21 @@ void* threadSearch(void* args){
 
 
 
-int main(int argc, char* argv[]){
+void splitSearch(int t, int soa, int *data){
   // finding target and finding the size of my array ~ Worked
-  int soa = atoi(argv[1]);
+  // int soa = atoi(argv[1]); **DON"T NEED THE PRECEDING CODE
+
   printf("%d\n", soa);
 
   numArray = (int *) malloc(sizeof(int) * soa);
 
+/* DON"T NEED THE BELOW CODE
   printf("Enter the search value:\n");
   scanf("%d", &target);
+*/
 
-  ///Populating the array ~ Worked
+  target = t;
+  ///Populating the array ~ NEED TO ADD RANDOMIZE PART
   int i;
   for (i = 0; i < soa; i++){
     numArray[i] = i + 1;
@@ -105,5 +101,5 @@ int main(int argc, char* argv[]){
 if (wasFound >=0) printf("target was found at position %d", wasFound);
 else printf("target was not found");
 
-return 0;
+return;
 }

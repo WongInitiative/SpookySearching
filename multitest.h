@@ -5,15 +5,13 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <pthread.h>
 
+#ifndef _MULTITEST_H
+#define _MULTITEST_H
+	#define dummySearch(x, y, z) splitSearch((x), (y), (z))
+	void* threadSearch(void*);
 
-#IFNDEF 
-#DEFINE dummySearch(int*, int, int) splitSearch(int, int, int)
+	int* numArray;
 
-
-
-
-
-
-
-#ENDIF
+#endif
