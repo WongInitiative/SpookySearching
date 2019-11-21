@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
+
 #include "multitest.h"
 
 int * numArray;
@@ -52,4 +54,42 @@ void workload1(int size, int target){
 	RNG(data, size);
 	numArray = data;
 	dummySearch(numArray, target, size);
+}
+
+//Workload 1
+
+void Workload 1 (){
+
+
+}
+
+
+//Workload 2 
+
+void Workload 2(){
+
+
+}
+
+
+//Workload 3
+
+void Workload 3(){
+
+
+
+}
+
+
+//Workload 4
+
+void Worklaod 4(){
+
+}
+
+
+//Workload 5
+void Workload 5() {
+
+
 }

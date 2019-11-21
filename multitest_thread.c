@@ -22,28 +22,18 @@ void* threadSearch(void* args){
 
 
 
-void splitSearch(int *data, int t, int soa){
-  // finding target and finding the size of my array ~ Worked
-  // int soa = atoi(argv[1]); **DON"T NEED THE PRECEDING CODE
-
- // printf("%d\n", soa);
-
- // numArray = (int *) malloc(sizeof(int) * soa);
-
-/* DON"T NEED THE BELOW CODE
-  printf("Enter the search value:\n");
-  scanf("%d", &target);
-*/
+void splitSearch(int *data, int t, int soa, int groupSize){
 
   target = t;
-  ///Populating the array ~ NEED TO ADD RANDOMIZE PART
   int i;
- // for (i = 0; i < soa; i++){
- //   numArray[i] = i + 1;
- // }
+
+  if (groupSize > 250){
+	printf("Error Group Size greater than 250\n");   
+	return;
+  }
 
   ///Creating threads need to execute my fxn ~ Worked
-  int threadsReq = soa % 250 == 0? soa/250: soa/250 + 1;
+  int threadsReq = soa % groupSize == 0? soa/groupSize: soa/groupSize + 1;
   printf("\n %d \n", threadsReq);
 
   pthread_t tids[threadsReq];
@@ -58,7 +48,7 @@ void splitSearch(int *data, int t, int soa){
   i = 0;
 
   while (leftover > 0){
-    if (leftover < 249){
+    if (leftover < (groupSize - 1)){
       start = 0;
       searchBound[i].start = start;
       searchBound[i].end = end;
@@ -66,10 +56,10 @@ void splitSearch(int *data, int t, int soa){
     }
 
     ///Changing bounds
-    start = start - 249;
+    start = start - (groupSize - 1);
     searchBound[i].start = start;
     searchBound[i].end = end;
-    leftover = leftover - 250;
+    leftover = leftover - groupSize;
     start = leftover;
     end = leftover;
     i++;
