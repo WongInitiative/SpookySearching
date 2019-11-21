@@ -9,7 +9,7 @@
 
 #ifndef _MULTITEST_H
 #define _MULTITEST_H
-	#define dummySearch(x, y, z) splitSearch((x), (y), (z))
+	#define dummySearch(w, x, y, z) splitSearch((w), (x), (y), (z))
 	typedef struct bounds{
  		int start;
 		int end;
@@ -17,7 +17,7 @@
 
 	int* numArray;
 	void* threadSearch(void*);
-	void splitSearch(int* data, int target, int length);
+	void splitSearch(int* data, int target, int length, int groupSize);
 	int genericSearch(int* data, int start, int end, int target);
 
 #endif
