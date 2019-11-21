@@ -1,0 +1,23 @@
+SpookySearching ~ Threads and Processes PRJT ~ Testplan
+
+Algorithm:
+
+To be able to compare to run time of our program using processes versus threads, we implemented a similar algorithm for both threads and processes. The algorithm essentially assigned boundaries for a 
+array that would be searched iteratively by each process/thread. Since processes do not share global and heap space, each process would contain a copy of the array, meaning our processes
+needed to know which boundaries to check. To communicate the start boundary, we passed a pointer that referenced the start boundary to the child pointer. Also, since we can only get pass the lower 8 bits
+of an integer, we passed that index in as a relative index based on (i.e. process 2 would return an index from 0 ~ 250 but the absolute index would be 2 * the index from 0 ~ 250. For threads, we let the
+array be global and used a structure to store the start and end boundaries, which we passed by reference to the new threads. Since threads can access the same global variables, to find an absolute index
+we allowed another global variable to store the position of the index (or a default value if no index was found).
+
+Questions to Answer in tests:
+Through our tests, there are a few questions we'd like to answer. These are:
+	a. What is the general trend of run time for threads/processes as list size increases? How do the run time of threads/processes compare as list size increases?
+	b. How is runtime fo threads affected as we increase the number of threads to search through a set size list?
+
+
+
+(1) testing threads and process on different sized lists
+
+(2) testing different group sizes for set list size --> tests parallelism 
+
+What length of list do threads at the same time as processes? What is the reduction in performance of using more threads for a set list sizes?   

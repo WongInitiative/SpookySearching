@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
+
 #include "multitest.h"
 
 int * numArray;
@@ -48,3 +50,40 @@ int main(int argc, char* argv[]){
   return 0;
 }
 
+//Workload 1
+
+void Workload 1 (){
+
+
+}
+
+
+//Workload 2 
+
+void Workload 2(){
+
+
+}
+
+
+//Workload 3
+
+void Workload 3(){
+
+
+
+}
+
+
+//Workload 4
+
+void Worklaod 4(){
+
+}
+
+
+//Workload 5
+void Workload 5() {
+
+
+}
