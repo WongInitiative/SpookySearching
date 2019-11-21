@@ -42,5 +42,8 @@ int main(int argc, char* argv[]){
   for (i= 0; i < soa; i++){
     printf("%d ", numArray[i]);
   }
+
+  dummySearch(numArray, 60, 500); 
+
   return 0;
 }
