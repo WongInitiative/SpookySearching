@@ -83,7 +83,7 @@ double min(double* times, int length){
 	int i, lowest;
 	for(i = 0; i < length; i++){
 		if(i == 0){
-			lowest = times[i]
+			lowest = times[i];
 		}else if(times[i] < lowest){
 			lowest = times[i];
 		}
@@ -98,12 +98,14 @@ double min(double* times, int length){
 void workload2(int* arrayName, int size, int target, int groupSize, int numOfTrials){
 	
 	double timeArray[numOfTrials];
-	
+	struct timeval start, end;	
+
+
 	int a;
 	for (a = 0; a < numOfTrials; a++){ //Running 20 trials
 		gettimeofday(&start, NULL);
 		
-		int oldIndex = dummySearch(data, target, size, groupSize);
+		int oldIndex = dummySearch(arrayName, target, size, groupSize);
 
 		gettimeofday(&end, NULL);
 		timeArray[a] = (double) (end.tv_usec - start.tv_usec);
@@ -131,7 +133,7 @@ void workload2(int* arrayName, int size, int target, int groupSize, int numOfTri
 	double maxTime = max(timeArray, numOfTrials);
 	double standDev = SD(timeArray, numOfTrials);
 
-	printf("the Min time is: %lf; the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n" minTime, averageTime, maxTime, standDev);
+	printf("the Min time is: %lf; the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n", minTime, averageTime, maxTime, standDev);
 
 	return;		
 }
@@ -143,7 +145,7 @@ double max(double* trialTimes, int numberOfTrials){
 	double maxVal = 0.0;
 	int a;
 	for (a = 0; a < numberOfTrials; a++){
-		if(trialTimes[a] > maxVal) maxVal = trialTimes[a]
+		if(trialTimes[a] > maxVal) maxVal = trialTimes[a];
 	}
 
 	return maxVal;
