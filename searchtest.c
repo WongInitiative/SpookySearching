@@ -92,12 +92,12 @@ double min(double* times, int length){
 
 
 //let list size be constant and change groupSize
-void workload2(int* arrayName, int size, int target, int groupSize){
+void workload2(int* arrayName, int size, int target, int groupSize, int numberOfTrials){
 	
-	double timeArray[20];
+	double timeArray[numOfTrials];
 	
 	int a
-	for (a = 0; a < 20; a++){ //Running 20 trials
+	for (a = 0; a < numOfTrials; a++){ //Running 20 trials
 		gettimeofday(&start, NULL);
 		
 		int oldIndex = dummySearch(data, target, size, groupSize);
@@ -122,9 +122,9 @@ void workload2(int* arrayName, int size, int target, int groupSize){
 	}
 
 	//find average, max, min, and standard deviation
-	double averageTime = average (timeArray, 20);
-	double maxTime = max(timeArray, 20);
-	double standDev = SD(timeArray, 20);
+	double averageTime = average (timeArray, numOfTrials);
+	double maxTime = max(timeArray, numOfTrials);
+	double standDev = SD(timeArray, numOfTrials);
 
 	printf("the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n", averageTime, maxTime, standDev);
 
