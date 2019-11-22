@@ -77,24 +77,26 @@ double min(double* times, int length){
 
 //let list size be constant and change groupSize
 void workloadGeneric(int* arrayName, int size, int target, int groupSize, int numOfTrials){
-	
+	printf("Running test with variable list size with parameters:\n List Size: %d\n, Target: %d\n, Group Size per Thread/Proc: %d\n, Number of Trials: %d\n", size, target, groupSize, numOfTrials);
 	double timeArray[numOfTrials];
 	struct timeval start, end;	
 
 
 	int a;
 	for (a = 0; a < numOfTrials; a++){ //Running numOfTrials times
+		printf("Iteration number %d is being run\n", (a+1));
 		gettimeofday(&start, NULL);
 		
 		int oldIndex = dummySearch(arrayName, target, size, groupSize);
 
 		gettimeofday(&end, NULL);
 		timeArray[a] = (double) (end.tv_usec - start.tv_usec);
+		printf("Time to complete iteration %d of this test was %lf milleseconds\n", (a+1), timeArray[a]);
 		
 		if(oldIndex == -1){
 			printf("\ntarget not found;\n");
-		}else{
-
+		}else{	
+			printf("\ntarget was found at index: %d;\n", oldIndex);
 			int newIndex = rand() % size ;
 
 			while (newIndex == oldIndex){
