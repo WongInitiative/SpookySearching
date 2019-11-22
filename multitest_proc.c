@@ -19,9 +19,9 @@
 
 //TODO
 //clean up pids array since there isn't much of a use for them
-void splitSearch(int* data, int target, int length){
-	int ProcCount = ceil(((double)length)/((double)250)); //number of processes we need
-	int Remain = length%250; //remainder: used in last process to count remaining indexes if the number of elements in the array does not divide evenly by 250
+void splitSearch(int* data, int target, int length, int groupSize){
+	int ProcCount = ceil(((double)length)/((double)groupSize)); //number of processes we need
+	int Remain = length%groupSize; //remainder: used in last process to count remaining indexes if the number of elements in the array does not divide evenly by groupSize
 	pid_t pids[ProcCount];
 	int result;
   	int i;
@@ -29,18 +29,18 @@ void splitSearch(int* data, int target, int length){
 		pids[i] = fork();
 		if(pids[i] == 0){ //Is the child, assign array processing
 			printf("Process %d is being created...\n", getpid());
-			if(Remain == 0){ //Remainder is 0 so all processes will look through 250 elements each
-				result = genericSearch(data, (i*250), ((i+1)*250), target);
-			}else if(i < (ProcCount-1)){ //Remainder is not 0, this means every process except the last one will look through 250 elements 
-				result = genericSearch(data, (i*250), ((i+1)*250), target);
-			}else{ //This tells the last process (in the case that the remainder is not 0), to count the remaining elements (<250) as to not overstep
-				result = genericSearch(data, (i*250), ((i*250)+Remain), target);
+			if(Remain == 0){ //Remainder is 0 so all processes will look through groupSize elements each
+				result = genericSearch(data, (i*groupSize), ((i+1)*groupSize), target);
+			}else if(i < (ProcCount-1)){ //Remainder is not 0, this means every process except the last one will look through groupSize elements 
+				result = genericSearch(data, (i*groupSize), ((i+1)*groupSize), target);
+			}else{ //This tells the last process (in the case that the remainder is not 0), to count the remaining elements (<groupSize) as to not overstep
+				result = genericSearch(data, (i*groupSize), ((i*groupSize)+Remain), target);
 			}
 
 			if(result == -1){
 				exit(255); //exit on success should never be more than 249, so this represents exit on failure to find the index
 			}else{
-				exit(result-(i*250)); //exit with the relative index found by process
+				exit(result-(i*groupSize)); //exit with the relative index found by process
 			}
 		}
 	}
