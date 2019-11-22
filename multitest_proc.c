@@ -20,6 +20,10 @@
 //TODO
 //clean up pids array since there isn't much of a use for them
 void splitSearch(int* data, int target, int length, int groupSize){
+	if(groupSize > 250){
+		printf("Error: groupSize must be <= 250");
+		return;
+	}
 	int ProcCount = ceil(((double)length)/((double)groupSize)); //number of processes we need
 	int Remain = length%groupSize; //remainder: used in last process to count remaining indexes if the number of elements in the array does not divide evenly by groupSize
 	pid_t pids[ProcCount];

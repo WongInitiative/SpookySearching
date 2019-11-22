@@ -7,8 +7,6 @@
 
 #include "multitest.h"
 
-int * numArray;
-
 void RNG(int* data, int soa);
 void workload1(int size, int target, int groupSize);
 
@@ -60,8 +58,7 @@ void RNG(int* data, int soa){
 void workload1(int size, int target, int groupSize){
 	int* data = (int*) malloc(sizeof(int)*size);
 	RNG(data, size);
-	numArray = data;
-	dummySearch(numArray, target, size, groupSize);
+	dummySearch(data, target, size, groupSize);
 }
 
 ////Workload 1

@@ -1,17 +1,17 @@
 #include "multitest.h"
 
-int target;
-//int wasFound = -1;
 
 
 void* threadSearch(void* args){
   bounds * boundPtr = (bounds *) args;
   printf("%d %d\n", boundPtr->start, boundPtr->end);
+  int* data = boundPtr -> data;
   int start = boundPtr-> start;
   int end = boundPtr -> end;
+  int target = boundPtr -> target;
   int* wasFound = (int*) malloc(sizeof(int));
   while (start <= end){
-      if (numArray[start] == target){
+      if (data[start] == target){
 	    *wasFound = start;
 		return (void*) wasFound;
       }
@@ -25,14 +25,13 @@ void* threadSearch(void* args){
 
 
 void splitSearch(int *data, int t, int soa, int groupSize){
-
-  target = t;
-  int i;
-
   if (groupSize > 250){
 	printf("Error Group Size greater than 250\n");   
 	return;
   }
+
+  int i;
+
 
   ///Creating threads need to execute my fxn ~ Worked
   int threadsReq = soa % groupSize == 0? soa/groupSize: soa/groupSize + 1;
@@ -54,6 +53,8 @@ void splitSearch(int *data, int t, int soa, int groupSize){
       start = 0;
       searchBound[i].start = start;
       searchBound[i].end = end;
+	  searchBound[i].data = data;
+	  searchBound[i].target = t;
       break;
     }
 
@@ -61,6 +62,8 @@ void splitSearch(int *data, int t, int soa, int groupSize){
     start = start - (groupSize - 1);
     searchBound[i].start = start;
     searchBound[i].end = end;
+	searchBound[i].data = data;
+	searchBound[i].target = t;
     leftover = leftover - groupSize;
     start = leftover;
     end = leftover;

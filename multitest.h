@@ -13,9 +13,10 @@
 	typedef struct bounds{
  		int start;
 		int end;
+		int* data;
+		int target;
 	}bounds;
 
-	int* numArray;
 	void* threadSearch(void*);
 	void splitSearch(int* data, int target, int length, int groupSize);
 	int genericSearch(int* data, int start, int end, int target);
