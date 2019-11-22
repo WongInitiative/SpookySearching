@@ -1,7 +1,7 @@
 #include "multitest.h"
 
 int target;
-int wasFound = -1;
+//int wasFound = -1;
 
 
 void* threadSearch(void* args){
@@ -9,16 +9,17 @@ void* threadSearch(void* args){
   printf("%d %d\n", boundPtr->start, boundPtr->end);
   int start = boundPtr-> start;
   int end = boundPtr -> end;
+  int* wasFound = (int*) malloc(sizeof(int));
   while (start <= end){
       if (numArray[start] == target){
-        wasFound = start;
-        pthread_exit(0);
+	    *wasFound = start;
+		return (void*) wasFound;
       }
       start++;
   }
   
-  wasFound = -1;
-  pthread_exit(0);
+  *wasFound = -1;
+  return (void*) wasFound;
 }
 
 
@@ -80,14 +81,17 @@ void splitSearch(int *data, int t, int soa, int groupSize){
   }
 
   for (i = 0; i < threadsReq; i++){
-    pthread_join (tids[i], NULL);
-  }
+	void* thread_result;
+    pthread_join (tids[i], &thread_result);
+	int wasFound = *(int*)thread_result;
+	if (wasFound >=0){ 
+		printf("Thread with id %zu found the target at position %d\n", tids[i], wasFound);
+	}else{
+		printf("Thread with id %zu did not find the target\n");
+	}
+	free(thread_result);
 
-if (wasFound >=0){ 
-	printf("target was found at position %d\n", wasFound);
-}else{
-	printf("target was not found\n");
-}
+  }
 
 return;
 }
