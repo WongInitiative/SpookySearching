@@ -37,7 +37,7 @@ int splitSearch(int *data, int t, int soa, int groupSize){
 
   ///Creating threads need to execute my fxn ~ Worked
   int threadsReq = soa % groupSize == 0? soa/groupSize: soa/groupSize + 1;
-  printf("\n %d \n", threadsReq);
+  //printf("\n %d \n", threadsReq);
 
   pthread_t tids[threadsReq];
 
@@ -73,11 +73,11 @@ int splitSearch(int *data, int t, int soa, int groupSize){
   }
 
   ///Checking bounds
-  i = 0;
-  while (i < threadsReq){
-    printf("%d %d\n", searchBound[i].start, searchBound[i].end);
-    i++;
-  }
+  //i = 0;
+  //while (i < threadsReq){
+  //  printf("%d %d\n", searchBound[i].start, searchBound[i].end);
+  //  i++;
+  //}
 
   for (i = 0; i < threadsReq; i++){
     ///Do I need any attributes?
