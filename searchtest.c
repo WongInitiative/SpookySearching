@@ -11,10 +11,10 @@ void RNG(int* data, int soa);
 void workload1(int size, int target, int groupSize);
 
 int main(int argc, char* argv[]){
-	workload1(500, 60, 250);
-	workload1(500, 10, 250);
-	workload1(500, 0, 250);
-	workload1(500, 500, 250);
+	workload1(500, 60, 150);
+	workload1(500, 10, 150);
+	workload1(500, 0, 150);
+	workload1(500, 500, 150);
 
 //	workload1(500, 60, 250);
 //	workload1(500, 60, 250);
