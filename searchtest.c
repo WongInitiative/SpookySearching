@@ -11,12 +11,15 @@
 int* RNG(int soa);
 void workload1(int* data, int size, int target, int groupSize);
 double min(double* times, int length);
-void workload2(int* arrayName, int size, int target, int groupSize);
+void workload2(int* arrayName, int size, int target, int groupSize, int numOfTrials);
 double max (double * trialTimes, int numberOfTrials);
 double SD (double* trialTimes, int numberOfTrials);
 double average (double* trialTimes, int numberOfTrials); 
 
 int main(int argc, char* argv[]){
+	int* data = RNG(500);
+	workload2(data, 500, 10, 250, 5);
+	free(data);
 //	workload1(500, 60, 150);
 //	workload1(500, 10, 150);
 //	workload1(500, 0, 150);
@@ -92,11 +95,11 @@ double min(double* times, int length){
 
 
 //let list size be constant and change groupSize
-void workload2(int* arrayName, int size, int target, int groupSize, int numberOfTrials){
+void workload2(int* arrayName, int size, int target, int groupSize, int numOfTrials){
 	
 	double timeArray[numOfTrials];
 	
-	int a
+	int a;
 	for (a = 0; a < numOfTrials; a++){ //Running 20 trials
 		gettimeofday(&start, NULL);
 		
@@ -107,26 +110,28 @@ void workload2(int* arrayName, int size, int target, int groupSize, int numberOf
 		
 		if(oldIndex == -1){
 			printf("\ntarget not found;\n");
-			return;
+		}else{
+
+			int newIndex = rand() % size ;
+
+			while (newIndex == oldIndex){
+				newIndex= rand() % size; 
+			}
+
+			int temp = arrayName[oldIndex];
+			arrayName[oldIndex] = arrayName[newIndex];
+			arrayName[newIndex] = temp;
 		}
-
-		int newIndex = rand() % size ;
-
-		while (newIndex == oldIndex){
-			newIndex= rand() % size; 
-		}
-
-		int temp = arrayName[oldIndex];
-		arrayName[oldIndex] = arrayName[newIndex];
-		arrayName[newIndex] = temp;
 	}
 
 	//find average, max, min, and standard deviation
+	
+	double minTime = min(timeArray, numOfTrials);
 	double averageTime = average (timeArray, numOfTrials);
 	double maxTime = max(timeArray, numOfTrials);
 	double standDev = SD(timeArray, numOfTrials);
 
-	printf("the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n", averageTime, maxTime, standDev);
+	printf("the Min time is: %lf; the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n" minTime, averageTime, maxTime, standDev);
 
 	return;		
 }
