@@ -14,49 +14,14 @@ void workloadGeneric(int* arrayName, int size, int target, int groupSize, int nu
 double max (double * trialTimes, int numberOfTrials);
 double SD (double* trialTimes, int numberOfTrials);
 double average (double* trialTimes, int numberOfTrials); 
+void workload1();
+void workload2();
+void workload3();
 
 int main(int argc, char* argv[]){
-//	int* data = RNG(500);
-//	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
-//	workloadGeneric(data, 500, 10, 250, 100);
-//	free(data);
-//	data = RNG(1000);
-//	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
-//	workloadGeneric(data, 1000, 10, 250, 100);
-//	free(data);
-//	data = RNG(10000);
-//	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
-//	workloadGeneric(data, 10000, 10, 250, 100);
-//	free(data);
-//	data = RNG(20000);
-//	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
-//	workloadGeneric(data, 20000, 10, 250, 100);
-//	free(data);
-//	data = RNG(25000);
-//	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
-//	workloadGeneric(data, 25000, 10, 250, 100);
-//	free(data);
-	int* data = RNG(500);
-	printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
-	workloadGeneric(data, 500, 10, 250, 100);
-	free(data);
-	data = RNG(500);
-	printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
-	workloadGeneric(data, 500, 10, 200, 100);
-	free(data);
-	data = RNG(500);
-	printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
-	workloadGeneric(data, 500, 10, 150, 100);
-	free(data);
-	data = RNG(500);
-	printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
-	workloadGeneric(data, 500, 10, 100, 100);
-	free(data);
-	data = RNG(500);
-	printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
-	workloadGeneric(data, 500, 10, 50, 100);
-	free(data);
-	
+	workload1();
+	workload2();
+	workload3();
 	return 0;
 }
 
@@ -104,9 +69,8 @@ double min(double* times, int length){
 
 
 
-//let list size be constant and change groupSize
 void workloadGeneric(int* arrayName, int size, int target, int groupSize, int numOfTrials){
-	printf("Running test with variable list size with parameters:\n List Size: %d\n Target: %d\n Group Size per Thread/Proc: %d\n Number of Trials: %d\n\n", size, target, groupSize, numOfTrials);
+	printf("Running test with parameters:\n List Size: %d\n Target: %d\n Group Size per Thread/Proc: %d\n Number of Trials: %d\n\n", size, target, groupSize, numOfTrials);
 	double timeArray[numOfTrials];
 	struct timeval start, end;	
 
@@ -121,7 +85,7 @@ void workloadGeneric(int* arrayName, int size, int target, int groupSize, int nu
 		gettimeofday(&end, NULL);
 		timeArray[a] = (double) ((end.tv_sec*1e6 + end.tv_usec) - (start.tv_sec*1e6 + start.tv_usec));
 		//timeArray[a] = (double) (end.tv_usec - start.tv_usec);
-		printf("Time to complete iteration %d of this test was %lf milleseconds\n", (a+1), timeArray[a]);
+		printf("Time to complete Trial %d of this test was %lf microseconds\n", (a+1), timeArray[a]);
 		
 		if(oldIndex == -1){
 			printf("target not found\n\n");
@@ -146,7 +110,7 @@ void workloadGeneric(int* arrayName, int size, int target, int groupSize, int nu
 	double maxTime = max(timeArray, numOfTrials);
 	double standDev = SD(timeArray, numOfTrials);
 
-	printf("\nthe Min time is: %lf; the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n", minTime, averageTime, maxTime, standDev);
+	printf("Across all %d trials, the Min time is: %lf; the Average time is: %lf; the Max time is: %lf; the standard deviation is: %lf\n\n\n", numOfTrials, minTime, averageTime, maxTime, standDev);
 
 	return;		
 }
@@ -194,6 +158,88 @@ double average (double* trialTimes, int numberOfTrials){
 	return averageTime;
 }
 
+//The purpose of this function is to compare the runtime of splitsearch for processes and threads when only the size of the LIST is changed
+void workload1(){
+	int* data = RNG(500);
+	printf("Running workload1()\n");
+	workloadGeneric(data, 500, 10, 250, 100);
+	free(data);
+	data = RNG(1000);
+	printf("Running workload1()\n");
+	workloadGeneric(data, 1000, 10, 250, 100);
+	free(data);
+	data = RNG(10000);
+	printf("Running workload1()\n");
+	workloadGeneric(data, 10000, 10, 250, 100);
+	free(data);
+	data = RNG(20000);
+	printf("Running workload1()\n");
+	workloadGeneric(data, 20000, 10, 250, 100);
+	free(data);
+	data = RNG(25000);
+	printf("Running workload1()\n");
+	workloadGeneric(data, 25000, 10, 250, 100);
+	free(data);
+	
+	return;
+}
 
+//The purpose of this function is to compare the runtime of splitsearch for processes and threads when only the size of the GROUP is changed
+void workload2(){
+	int* data = RNG(500);
+	printf("Running workload2()\n");
+	workloadGeneric(data, 500, 10, 250, 100);
+	free(data);
+	data = RNG(500);
+	printf("Running workload2()\n");
+	workloadGeneric(data, 500, 10, 200, 100);
+	free(data);
+	data = RNG(500);
+	printf("Running workload2()\n");
+	workloadGeneric(data, 500, 10, 150, 100);
+	free(data);
+	data = RNG(500);
+	printf("Running workload2()\n");
+	workloadGeneric(data, 500, 10, 100, 100);
+	free(data);
+	data = RNG(500);
+	printf("Running workload2()\n");
+	workloadGeneric(data, 500, 10, 50, 100);
+	free(data);
 
+	return;
+
+}
+
+//The purpose of this function is to figure out how many threads it takes for the time of of splitsearch to match  the time of splitsearch being run by a single process,
+void workload3(){
+//testing time for 1 process on a list of 250 vs. time for variable number of threads on 250
+	int* data = RNG(250);
+	printf("Running workload3()\n");
+	workloadGeneric(data, 250, 10, 250, 100);
+	free(data);
+	data = RNG(250);
+	printf("Running workload3()\n");
+	workloadGeneric(data, 250, 10, 125, 100);
+	free(data);
+	data = RNG(250);
+	printf("Running workload3()\n");
+	workloadGeneric(data, 250, 10, 50, 100);
+	free(data);
+	data = RNG(250);
+	printf("Running workload3()\n");
+	workloadGeneric(data, 250, 10, 20, 100);
+	free(data);
+	data = RNG(250);
+	printf("Running workload3()\n");
+	workloadGeneric(data, 250, 10, 5, 100);
+	free(data);
+	data = RNG(250);
+	printf("Running workload3()\n");
+	workloadGeneric(data, 250, 10, 3, 100);
+	free(data);
+	
+	return;
+	//printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
+}
 
