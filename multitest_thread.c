@@ -24,7 +24,7 @@ void* threadSearch(void* args){
 
 
 
-void splitSearch(int *data, int t, int soa, int groupSize){
+int splitSearch(int *data, int t, int soa, int groupSize){
   printf ("Below test is running with threads: \n");
 
   if (groupSize > 250){
@@ -84,13 +84,14 @@ void splitSearch(int *data, int t, int soa, int groupSize){
     pthread_create(&tids[i], NULL, threadSearch, &searchBound[i]);
     printf("Succesfully Created\n");
   }
-
+  int foundStatus = -1;
   for (i = 0; i < threadsReq; i++){
 	void* thread_result;
     pthread_join (tids[i], &thread_result);
 	int wasFound = *(int*)thread_result;
 	if (wasFound >=0){ 
 		printf("Thread with id %zu found the target at position %d\n", tids[i], wasFound);
+		foundStatus = wasFound;
 	}else{
 		printf("Thread with id %zu did not find the target\n");
 	}
@@ -98,5 +99,6 @@ void splitSearch(int *data, int t, int soa, int groupSize){
 
   }
 
-return;
+return foundStatus;
+
 }
