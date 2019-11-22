@@ -16,7 +16,8 @@ void* threadSearch(void* args){
       }
       start++;
   }
-
+  
+  wasFound = -1;
   pthread_exit(0);
 }
 
@@ -82,8 +83,11 @@ void splitSearch(int *data, int t, int soa, int groupSize){
     pthread_join (tids[i], NULL);
   }
 
-if (wasFound >=0) printf("target was found at position %d", wasFound);
-else printf("target was not found");
+if (wasFound >=0){ 
+	printf("target was found at position %d\n", wasFound);
+}else{
+	printf("target was not found\n");
+}
 
 return;
 }
