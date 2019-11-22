@@ -1,25 +1,9 @@
 #include "multitest.h"
-//#include <stdlib.h>
-//#include <stdio.h>
-//#include <string.h>
-//#include <math.h>
-//#include <unistd.h>
-//#include <sys/types.h>
-//#include <sys/wait.h>
 
-//int main(int argc, char** argv){
-//	int i;
-//	int RandList[500];
-//	for(i = 0; i < 500; i++){
-//		RandList[i] = i;//+1;
-//	}
-//	procSearch(RandList, 249, 500);
-//	return 0;
-//}
 
-//TODO
-//clean up pids array since there isn't much of a use for them
 void splitSearch(int* data, int target, int length, int groupSize){
+	printf("Below test is searching with processes: \n);	
+
 	if(groupSize > 250){
 		printf("Error: groupSize must be <= 250");
 		return;
