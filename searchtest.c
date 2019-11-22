@@ -9,37 +9,31 @@
 #include "multitest.h"
 
 int* RNG(int soa);
-void workload1(int* data, int size, int target, int groupSize);
 double min(double* times, int length);
-void workload2(int* arrayName, int size, int target, int groupSize, int numOfTrials);
+void workloadGeneric(int* arrayName, int size, int target, int groupSize, int numOfTrials);
 double max (double * trialTimes, int numberOfTrials);
 double SD (double* trialTimes, int numberOfTrials);
 double average (double* trialTimes, int numberOfTrials); 
 
 int main(int argc, char* argv[]){
 	int* data = RNG(500);
-	workload2(data, 500, 10, 250, 5);
+	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
+	workloadGeneric(data, 500, 10, 250, 100);
+	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
+	workloadGeneric(data, 1000, 10, 250, 100);
+	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
+	workloadGeneric(data, 10000, 10, 250, 100);
+	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
+	workloadGeneric(data, 20000, 10, 250, 100);
+	printf("Running test with variable list size to observe how list size impacts execution time for processes vs. threads\n");
+	workloadGeneric(data, 25000, 10, 250, 100);
 	free(data);
-//	workload1(500, 60, 150);
-//	workload1(500, 10, 150);
-//	workload1(500, 0, 150);
-//	workload1(500, 500, 150);
-
-//	workload1(500, 60, 250);
-//	workload1(500, 60, 250);
-//	workload1(500, 60, 250);
-//	workload1(500, 60, 250);
-
-	//int i;
-	//for (i= 0; i < 500; i++){
-    //	printf("%d \n", numArray[i]);
-	//}
 	return 0;
 }
 
 //populates random number array
 int* RNG(int soa){
-	srand(1);						//NOTE: GET RID OF THIS IF YOU WANT EVERY CALL TO A WORKLOAD TO CREATE A DIFFERENT ARRAY SEQUENCE
+//	srand(1);						//NOTE: GET RID OF THIS IF YOU WANT EVERY CALL TO A WORKLOAD TO CREATE A DIFFERENT ARRAY SEQUENCE
 	int* data = (int*) malloc(sizeof(int)*soa);
 	int i;	
 	for (i = 0; i < soa; i++){
@@ -63,20 +57,7 @@ int* RNG(int soa){
   return data;
 }
 
-void workload1(int* data, int size, int target, int groupSize){
-	int i = 0;
-	for(i = 0; i < 100; i++){
-		int index = dummySearch(data, target, size, groupSize);
-		//swap
-		if(index != -1){
-			int temp = data[index];
-			int randIndex = rand() % size;
-			data[index] = data[randIndex];
-			data[randIndex] = temp;
-		}
-	}
-	return;
-}
+
 
 //minimum
 double min(double* times, int length){
@@ -95,14 +76,14 @@ double min(double* times, int length){
 
 
 //let list size be constant and change groupSize
-void workload2(int* arrayName, int size, int target, int groupSize, int numOfTrials){
+void workloadGeneric(int* arrayName, int size, int target, int groupSize, int numOfTrials){
 	
 	double timeArray[numOfTrials];
 	struct timeval start, end;	
 
 
 	int a;
-	for (a = 0; a < numOfTrials; a++){ //Running 20 trials
+	for (a = 0; a < numOfTrials; a++){ //Running numOfTrials times
 		gettimeofday(&start, NULL);
 		
 		int oldIndex = dummySearch(arrayName, target, size, groupSize);

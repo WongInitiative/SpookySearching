@@ -35,7 +35,7 @@ int splitSearch(int* data, int target, int length, int groupSize){
   
 	int status, exit_status;
 	pid_t deadpid;
-	int result = -1;
+	int retval = -1;
 	int j = 0;
 	while(j < ProcCount){
 		deadpid = wait(&status);
@@ -44,14 +44,14 @@ int splitSearch(int* data, int target, int length, int groupSize){
 			exit_status = WEXITSTATUS(status);
 			if(exit_status != 255){
 				printf("Process with PID: %zu has found the target at relative index: %d\n", deadpid, exit_status); //add print shit here
-				result = (groupSize*j) + exit_status;
+				retval = (groupSize*j) + exit_status;
 			}else{
 				printf("Process with PID: %zu did not find the target \n", deadpid);
 			}
 		}
 		++j;
 	}
-	return result;
+	return retval;
 }
 
 int genericSearch(int* data, int start, int end, int target){
