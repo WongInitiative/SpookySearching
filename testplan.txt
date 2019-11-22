@@ -12,7 +12,7 @@ we allowed another global variable to store the position of the index (or a defa
 Questions to Answer in tests:
 Through our tests, there are a few questions we'd like to answer. These are:
 	a. What is the general trend of run time for threads/processes as list size increases? How do the run time of threads/processes compare as list size increases?
-	b. How is runtime fo threads affected as we increase the number of threads to search through a set size list?
+	b. How is runtime fo threads/processes affected as we increase the number of threads/processes to search through a set size list?
 
 
 

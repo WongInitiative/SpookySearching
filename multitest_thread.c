@@ -25,6 +25,8 @@ void* threadSearch(void* args){
 
 
 void splitSearch(int *data, int t, int soa, int groupSize){
+  printf ("Below test is running with threads: \n");
+
   if (groupSize > 250){
 	printf("Error Group Size greater than 250\n");   
 	return;
