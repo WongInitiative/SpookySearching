@@ -1,8 +1,8 @@
 #include "multitest.h"
 
 
-void splitSearch(int* data, int target, int length, int groupSize){
-	printf("Below test is searching with processes: \n);	
+int splitSearch(int* data, int target, int length, int groupSize){
+	printf("Below test is searching with processes: \n");	
 
 	if(groupSize > 250){
 		printf("Error: groupSize must be <= 250");
@@ -35,20 +35,23 @@ void splitSearch(int* data, int target, int length, int groupSize){
   
 	int status, exit_status;
 	pid_t deadpid;
-	while(ProcCount > 0){
+	int result = -1;
+	int j = 0;
+	while(j < ProcCount){
 		deadpid = wait(&status);
 		//printf("A process %d died", i);
 		if(WIFEXITED(status)){
 			exit_status = WEXITSTATUS(status);
 			if(exit_status != 255){
 				printf("Process with PID: %zu has found the target at relative index: %d\n", deadpid, exit_status); //add print shit here
+				result = (groupSize*j) + exit_status;
 			}else{
 				printf("Process with PID: %zu did not find the target \n", deadpid);
 			}
 		}
-		--ProcCount;
+		++j;
 	}
-	return;
+	return result;
 }
 
 int genericSearch(int* data, int start, int end, int target){
