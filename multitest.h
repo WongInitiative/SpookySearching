@@ -18,7 +18,7 @@
 	}bounds;
 
 	void* threadSearch(void*);
-	void splitSearch(int* data, int target, int length, int groupSize);
+	int splitSearch(int* data, int target, int length, int groupSize);
 	int genericSearch(int* data, int start, int end, int target);
 
 #endif
