@@ -4,7 +4,7 @@
 
 void* threadSearch(void* args){
   bounds * boundPtr = (bounds *) args;
-  printf("%d %d\n", boundPtr->start, boundPtr->end);
+  //printf("%d %d\n", boundPtr->start, boundPtr->end);
   int* data = boundPtr -> data;
   int start = boundPtr-> start;
   int end = boundPtr -> end;
@@ -82,7 +82,7 @@ int splitSearch(int *data, int t, int soa, int groupSize){
   for (i = 0; i < threadsReq; i++){
     ///Do I need any attributes?
     pthread_create(&tids[i], NULL, threadSearch, &searchBound[i]);
-    printf("Succesfully Created\n");
+   // printf("Succesfully Created\n");
   }
   int foundStatus = -1;
   for (i = 0; i < threadsReq; i++){
@@ -90,10 +90,10 @@ int splitSearch(int *data, int t, int soa, int groupSize){
     pthread_join (tids[i], &thread_result);
 	int wasFound = *(int*)thread_result;
 	if (wasFound >=0){ 
-		printf("Thread with id %zu found the target at position %d\n", tids[i], wasFound);
+		//printf("Thread with id %zu found the target at position %d\n", tids[i], wasFound);
 		foundStatus = wasFound;
 	}else{
-		printf("Thread with id %zu did not find the target\n");
+		//printf("Thread with id %zu did not find the target\n");
 	}
 	free(thread_result);
 

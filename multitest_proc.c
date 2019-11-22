@@ -16,7 +16,7 @@ int splitSearch(int* data, int target, int length, int groupSize){
   	for (i = 0; i < ProcCount; i++){	
 		pids[i] = fork();
 		if(pids[i] == 0){ //Is the child, assign array processing
-			printf("Process %d is being created...\n", getpid());
+			//printf("Process %d is being created...\n", getpid());
 			if(Remain == 0){ //Remainder is 0 so all processes will look through groupSize elements each
 				result = genericSearch(data, (i*groupSize), ((i+1)*groupSize), target);
 			}else if(i < (ProcCount-1)){ //Remainder is not 0, this means every process except the last one will look through groupSize elements 
@@ -43,10 +43,10 @@ int splitSearch(int* data, int target, int length, int groupSize){
 		if(WIFEXITED(status)){
 			exit_status = WEXITSTATUS(status);
 			if(exit_status != 255){
-				printf("Process with PID: %zu has found the target at relative index: %d\n", deadpid, exit_status); //add print shit here
+				//printf("Process with PID: %zu has found the target at relative index: %d\n", deadpid, exit_status); //add print shit here
 				retval = (groupSize*j) + exit_status;
 			}else{
-				printf("Process with PID: %zu did not find the target \n", deadpid);
+				//printf("Process with PID: %zu did not find the target \n", deadpid);
 			}
 		}
 		++j;
