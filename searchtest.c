@@ -240,6 +240,5 @@ void workload3(){
 	free(data);
 	
 	return;
-	//printf("Running test with variable group size to observe how group size impacts execution time for processes vs. threads\n");
 }
 

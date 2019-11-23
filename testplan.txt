@@ -1,23 +1,65 @@
 SpookySearching ~ Threads and Processes PRJT ~ Testplan
 
 Algorithm:
+To be able to compare to run time of our program using processes versus threads, we implemented a similar algorithm for both threads and processes. The algorithm essentially assigns specific array boundaries to each child process/thread in order to allow each of them to search a different subsection of the array (the size of which is determined by the parameter groupSize). For each child process, once the target is found, the relative index (index relative to the beginning of the subsection
+that the process is responsible for) is encoded into the the exit status of the child process and can then be read by the parent process. If the target is not found the child reports an exit status of 255, since any relative index should be no greater than 250. Similaraily, each thread will look for the target in subsection of the array and when the target is found a void pointer is returned. This pointer hold the address of a dynamically allocated space in memory that holds either the true
+index of where the target was found in the array, or a default value of -1 to represent that the thread did not find it.
 
-To be able to compare to run time of our program using processes versus threads, we implemented a similar algorithm for both threads and processes. The algorithm essentially assigned boundaries for a 
-array that would be searched iteratively by each process/thread. Since processes do not share global and heap space, each process would contain a copy of the array, meaning our processes
-needed to know which boundaries to check. To communicate the start boundary, we passed a pointer that referenced the start boundary to the child pointer. Also, since we can only get pass the lower 8 bits
-of an integer, we passed that index in as a relative index based on (i.e. process 2 would return an index from 0 ~ 250 but the absolute index would be 2 * the index from 0 ~ 250. For threads, we let the
-array be global and used a structure to store the start and end boundaries, which we passed by reference to the new threads. Since threads can access the same global variables, to find an absolute index
-we allowed another global variable to store the position of the index (or a default value if no index was found).
 
 Questions to Answer in tests:
 Through our tests, there are a few questions we'd like to answer. These are:
 	a. What is the general trend of run time for threads/processes as list size increases? How do the run time of threads/processes compare as list size increases?
 	b. How is runtime fo threads/processes affected as we increase the number of threads/processes to search through a set size list?
+			-We will increase the number of threads/processes used by decreasing the size of the group that each one is responsible for searching through.
+	c. How many threads does it take to make using a single process more efficient than using multiple threads to splitsearch a list of the same size?
+	
+
+
+workload1() testing threads and process on different sized lists
+	-While keeping all other parameters the same, we change the size of the list to be searched through and look at how time is effected by varying sizes of lists.
+		The parameters that will be kept constant:
+			Target: 10
+			Group Size: 250
+			Number of Trials for these Parameters: 100
+		These same parameters will be used to test with
+			List Size: 500
+			List Size: 1000
+			List Size: 10000
+			List Size: 20000
+			List Size: 25000
+
+workload2() testing threads and process on different group sizes
+	-While keeping all other parameters the same, we change the group size that each thread/process is responsible for in order to look at how time is effected by an increasing number of threads or processes searching through the same sized list.
+		The parameters that will be kept constant:
+			List Size: 500
+			Target: 10
+			Number of Trials for these Parameters: 100
+		These same parameters will be used to test with
+			Group Size: 250
+			Group Size: 200
+			Group Size: 150
+			Group Size: 100
+			Group Size: 50
+
+workload3()	test which compares the time it takes for single child process to search through a list of 250 elements vs. the time it takes for X number of threads to search through a list of  250 elements
+	-While keeping all other parameters the same, we change the group size that each thread is responsible for in order to look at how time is effected by an increasing number of threads. THEN, we compare these times to the time it takes for ONE process to find the target.
+		The parameters that will be kept constant for THREADS:
+			List Size: 250
+			Target: 10
+			Number of Trials for these Parameters: 100
+		These same parameters will be used to test THREADS with
+			Group Size: 250
+			Group Size: 125
+			Group Size: 50
+			Group Size: 20
+			Group Size: 5
+			Group Size: 3
+		
+		The parameters that will kept constant for PROCESSES:
+			List Size: 250
+			Target: 10
+			Group Size: 250
+			Number of Trials for these Parameters: 100
 
 
 
-(1) testing threads and process on different sized lists
-
-(2) testing different group sizes for set list size --> tests parallelism 
-
-What length of list do threads at the same time as processes? What is the reduction in performance of using more threads for a set list sizes?   
