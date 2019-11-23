@@ -234,10 +234,6 @@ void workload3(){
 	printf("Running workload3()\n");
 	workloadGeneric(data, 250, 10, 5, 100);
 	free(data);
-	data = RNG(250);
-	printf("Running workload3()\n");
-	workloadGeneric(data, 250, 10, 3, 100);
-	free(data);
 	
 	return;
 }

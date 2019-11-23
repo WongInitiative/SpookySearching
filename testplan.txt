@@ -53,7 +53,6 @@ workload3()	test which compares the time it takes for single child process to se
 			Group Size: 50
 			Group Size: 20
 			Group Size: 5
-			Group Size: 3
 		
 		The parameters that will kept constant for PROCESSES:
 			List Size: 250
